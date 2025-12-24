@@ -1,0 +1,10 @@
+# Ignore build folders
+x64/
+bin/
+obj/
+Debug/
+Release/
+*.exe
+*.dll
+*.pdb
+.vs/

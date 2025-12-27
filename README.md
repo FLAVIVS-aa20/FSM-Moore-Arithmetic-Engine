@@ -181,7 +181,7 @@ The `clsContext` class is the **core of the FSM**. It manages the current state,
 This design ensures clean separation of responsibilities and safe memory management.
 ---
 ## Tansition Activity Diagram:
-![Transition Activity Diagram](Transition_State_Occurence.png)
+![Transition Activity Diagram](Transition State Occurence.png)
 
 
 

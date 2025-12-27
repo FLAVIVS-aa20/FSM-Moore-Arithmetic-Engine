@@ -182,6 +182,123 @@ This design ensures clean separation of responsibilities and safe memory managem
 ---
 ## Tansition Activity Diagram:
 ![Transition Activity Diagram](Transition_State_Occurence.png)
+# Activity Diagram Explanation:
 
+The previous diagram illustrates how transitions occur within a finite state machine (FSM) in a calculator application.
 
+## Scenario: Current State is `clsS`
+
+### Step 0: Initial Setup
+```cpp
+clsContext ctx;
+ctx.SetCurrentState(new clsS());  // Start state
+```
+- The `currentState` points to an instance of `clsS`.
+- The `clsContext` data is initialized with default values:
+  - `buildingnumber = ""`
+  - `operand1 = 0`
+  - `lastnumber = 0`
+  - `operatorChar = '0'`
+
+### Step 1: User Inputs a Number (e.g., "3")
+```cpp
+std::string token = "3";
+ctx.HandleInput(token);
+```
+- Inside `clsContext::HandleInput`:
+```cpp
+type next = currentState->HandleInput(token, *this);
+Transition(next);
+```
+
+### Step 2: Polymorphic Call to `clsS::HandleInput`
+```cpp
+type clsS::HandleInput(std::string Token, clsContext &ctx)
+```
+- Loop through the token (`'3'`):
+  1. `'3'` is a digit → add to `buildingnumber`: 
+     ```cpp
+     ctx.buildingnumber += '3';
+     ```
+  2. Return the next state:
+     ```cpp
+     return clsStateType::Accumulate;
+     ```
+'this indicates that clsS does not perform the transition itself but requests it by returning an enum value.
+'the transition request is handled separately.
+'this design promotes separation of concerns and flexibility.
+'these steps illustrate how input handling and state transitions are managed in this FSM-based calculator.
+
+### Step 3: Transition Execution in `clsContext::Transition(next)`
+```cpp
+Transition(clsStateType::Accumulate);
+ ```
+to be executed inside the method
+
+1) delete old state if exists:
+```cpp
+if(currentState) delete currentState;
+```
+2) Create the new state:
+```cpp
+case clsStateType::Accumulate: 
+SetCurrentState(new clsAC());
+```
+3) Update display via enterState():
+```cpp
+enterState(nextState);   
+display = buildingnumber.empty() ? "0" : buildingnumber;
+```
+## Transition is Completed 
+
+## This project implements a Finite State Machine (FSM)-based calculator using a C++ DLL and a C# GUI. 
+C++ DLL → contains the FSM calculator logic 
+C# GUI → user interface that dynamically calls 
+the DLL functions 
+## This separation ensures modularity, memory safety and easy maintenance.
+
+# C++ DLL Explanation
+
+## Files
+- **dllmain.cpp** → Standard Windows DLL entry point  
+- **csFSMLinkercpp.h** → Declares exported functions for C#  
+- **csFSMLinkercpp.cpp** → FSM calculator logic  
+
+## Why DLL is Important
+1. Allows the C++ FSM logic to be reused by C# GUI  
+2. Keeps the GUI code simple and modular  
+3. Supports memory management through explicit context creation/deletion  
+
+## Build Instructions (C++ DLL)
+1. Open `FSMCalculatorMachineDLL.sln` in Visual Studio  
+2. Set **Configuration** → Release or Debug  
+3. Set **Project Properties** → **Configuration Type** → Dynamic Library (.dll)  
+4. Set **Target Architecture** → x64 (must match C# GUI)  
+5. Build project → DLL is generated  
+6. Copy the `.dll` into the C# GUI `bin` folder  
+
+## Using the DLL in C# GUI
+
+### CalculatorBackend Wrapper
+Provides safe, object-oriented access to the DLL:
+
+```csharp
+CalculatorBackend backend = new CalculatorBackend();
+backend.HandleInput("5");
+backend.HandleInput("+");
+backend.HandleInput("3");
+string result = backend.CalculateResult(); // returns "8"
+backend.Dispose();
+```
+
+## Architecture Matching
+
+DLL and C# GUI must have the same architecture:
+
+- **x64 ↔ x64**  
+- **x86 ↔ x86**  
+
+Set in **Project Properties → Build → Platform target**.  
+
+Then you can run your GUI.
 

@@ -142,7 +142,7 @@ The `clsContext` class is the **core of the FSM**. It manages the current state,
 ---
 
 ## Moore Calculator Diagram:
-![Moore FSM Diagram](MooreCalculatorMachine2.drawio.png)
+![Moore FSM Diagram](MooreCalculatoreMachine2.drawio.png)
 ### The Previous Diagram illustrates the Moore State Machine Calculator
 
 ## Key Methods

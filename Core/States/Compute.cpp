@@ -28,7 +28,9 @@ clsStateType clsCompute::HandleInput(std::string Token, clsContext &ctx){
                 }
                 else if((T == '+') || (T == '-') || (T == '*') || (T == '/'))
                 {
-                    if(!ctx.buildingnumber.empty()) ctx.lastnumber = std::stoi(ctx.buildingnumber);
+       
+                    ctx.operand1 = ctx.lastnumber;
+                    ctx.lastnumber = 0;
                     ctx.buildingnumber = "";
                     ctx.operatorChar = T;
                     return clsStateType::OperatorWait;

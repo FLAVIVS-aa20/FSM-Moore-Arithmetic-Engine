@@ -147,7 +147,7 @@ The `clsContext` class is the **core of the FSM**. It manages the current state,
 ---
 
 ## Moore Arithmetic Engine Diagram:
-![Moore Arithmetic Engine](MooreCalculatoreMachine2.drawio.png)
+![Moore Arithmetic Engine](Moore_Arithmetic_Engine.drawio.png)
 ### The Previous Diagram illustrates the Moore State Machine Arithmetic Engine
 
 ## Key Methods

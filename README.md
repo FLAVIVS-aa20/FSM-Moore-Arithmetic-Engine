@@ -48,11 +48,11 @@ FSM_Moore_ِArithmetic_Engine/
 ```
 
 
-# Moore FSM Arithmetic Engine Project Documentation
+# The FSM Moore Arithmetic Engine Project Documentation
 
 ## Project Overview
 
-The **Moore FSM Arithmetic Engine** is a software implementation of a finite state machine (FSM) designed to perform arithmetic calculations in a structured, state-driven way.  
+The **FSM Moore Arithmetic Engine** is a software implementation of a finite state machine (FSM) designed to perform arithmetic calculations in a structured, state-driven way.  
 Inspired by concepts from **Computer Organization & Architecture (COA)**, it models how a CPU control unit interprets instructions and manages an **accumulator** to store intermediate results.
 
 Unlike a typical calculator, this engine behaves like a **hardware-style accumulator**, where each operation depends on the current state of the machine rather than just the input.  
